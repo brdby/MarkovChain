@@ -60,6 +60,26 @@ public class ChainEmulator {
             chart.setVisible(true);
         }
 
+
+        String text =  "P0 = 0 * (P0 + P1 + P2 + P3 + P4) = 0\n" +
+                "P1 = O,50 * P0 + 1,00*P4\n" +
+                "P2 = 0,75*P2 + 0,40*P3\n" +
+                "P3 = 1,00*P1\n" +
+                "P4 = 0,50*P0 + 0,25*P2 + 0,60*P3\n" +
+                "P0 + P1 + P2 + P3 + P4 = 1\n" +
+                "--------------------------------------------------\n" +
+                "P1 = 1 * P4\n" +
+                "P2 = 0,75 * P2 + 0,40 * P3\n" +
+                "P3 = 1 * P1\n" +
+                "P4 = 0,25 * P2 + 0,60 * P3\n" +
+                "P1 + P2 + P3 + P4 = 1";
+        System.out.println(text);
+
+        double p0 = 0, p1 = 0.2174, p2 = 0.3478, p3 = 0.2174, p4 = 0.2174;
+
+        System.out.println("P0 - " + p0 + "; P1 - " + p1 + "; P2 - " + p2 + "; P3 - " + p3 + "; P4 - " + p4);
+        System.out.println("Проверка - P1 + P2 + P3 + P4 = " + (p1+p2+p3+p4) + "\n");
+
         return output.toString();
     }
 }

@@ -14,7 +14,7 @@ public class Main {
         int[] values = {0, 0, 1, 1, 0};
 
         ChainEmulator chain = new ChainEmulator(firstPosition, transitionMatrix, values);
-        System.out.println(chain.emulateChain(20, true));
+        System.out.println(chain.emulateChain(30, true));
 
     }
 }
