@@ -1,7 +1,7 @@
-import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class ChainEmulator {
@@ -9,13 +9,49 @@ public class ChainEmulator {
     private final double[] firstPosition;
     private final double[][] transitionMatrix;
     private final int[] chainValues;
-    private final double length;
+    private final int length;
+    private int pere_sosMax;
+    private double[][] pere_sosFin;
 
     public ChainEmulator(double[] firstPosition, double[][] transitionMatrix, int[] chainValues){
         this.firstPosition = firstPosition;
         this.transitionMatrix = transitionMatrix;
         this.chainValues = chainValues;
         this.length = firstPosition.length;
+    }
+
+    private void pere_sos(int pos, double prevVar, int count){
+        if (count == pere_sosMax) return;
+        for (int i = 0; i < length; i++){
+            if (transitionMatrix[pos][i] != 0 && count < pere_sosMax) {
+                int localCount = count+1;
+                pere_sosFin[count][i] += transitionMatrix[pos][i]*prevVar;
+                pere_sos(i, transitionMatrix[pos][i]*prevVar, localCount);
+            }
+        }
+    }
+
+    public void sos_pere(int maxStep){
+        this.pere_sosMax = maxStep;
+        pere_sosFin = new double[pere_sosMax][length];
+
+        int firstStep = 0;
+        Random random = new Random();
+        double rNum = random.nextDouble();
+        for (int i = 0; i < length; i++){
+            if (rNum > firstPosition[i]){
+                rNum-=firstPosition[i];
+            } else {
+                firstStep = i;
+                break;
+            }
+        }
+
+        pere_sos(firstStep, 1, 0);
+
+        for (int i = 0; i < pere_sosMax; i++){
+            System.out.println(i + " - " + Arrays.toString(pere_sosFin[i]));
+        }
     }
 
     public String emulateChain(int steps, boolean showChart){

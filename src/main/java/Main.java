@@ -1,6 +1,3 @@
-import java.util.HashMap;
-import java.util.Map;
-
 public class Main {
     public static void main(String[] args){
         double[] firstPosition = {1, 0, 0, 0, 0};
@@ -14,7 +11,8 @@ public class Main {
         int[] values = {0, 0, 1, 1, 0};
 
         ChainEmulator chain = new ChainEmulator(firstPosition, transitionMatrix, values);
-        System.out.println(chain.emulateChain(30, true));
+        System.out.println(chain.emulateChain(30, true) + "\n");
 
+        chain.sos_pere(40);
     }
 }
