@@ -1,18 +1,52 @@
 public class Main {
     public static void main(String[] args){
-        double[] firstPosition = {1, 0, 0, 0, 0};
-        double[][] transitionMatrix = {
-                {0, 0.50, 0, 0, 0.50},
-                {0, 0, 0, 1, 0},
-                {0, 0, 0.75, 0, 0.25},
-                {0, 0, 0.40, 0, 0.60},
-                {0, 1, 0, 0, 0}
+        double[] firstPosition = {1, 0, 0, 0, 0 ,0, 0};
+        double[][] transitionMatrix1_1 = {
+                {0.9 , 0.1 , 0 , 0 , 0 , 0, 0},
+                {0 , 0.9 , 0.1 , 0 , 0 , 0, 0},
+                {0 , 0 , 0.9 , 0.1 , 0 , 0, 0},
+                {0 , 0 , 0 , 0.9 , 0.1 , 0, 0},
+                {0 , 0 , 0 , 0 , 0.9 , 0.1 , 0},
+                {0 , 0 , 0 , 0 , 0 , 0.9 , 0.1},
+                {0 , 0 , 0 , 0 , 0 , 0, 1},
         };
-        int[] values = {0, 0, 1, 1, 0};
 
-        ChainEmulator chain = new ChainEmulator(firstPosition, transitionMatrix, values);
-        System.out.println(chain.emulateChain(30, true) + "\n");
+        double[][] transitionMatrix1_2 = {
+                {0.4 , 0.6 , 0 , 0 , 0 , 0, 0},
+                {0 , 0.4 , 0.6 , 0 , 0 , 0, 0},
+                {0 , 0 , 0.4 , 0.6 , 0 , 0, 0},
+                {0 , 0 , 0 , 0.4 , 0.6 , 0, 0},
+                {0 , 0 , 0 , 0 , 0.4 , 0.6 , 0},
+                {0 , 0 , 0 , 0 , 0 , 0.4 , 0.6},
+                {0 , 0 , 0 , 0 , 0 , 0, 1},
+        };
 
-        chain.sos_pere(40);
+        double[][] transitionMatrix2_1 = {
+                {0.9 , 0.1 , 0 , 0 , 0 , 0, 0},
+                {0.1 , 0.8 , 0.1 , 0 , 0 , 0, 0},
+                {0 , 0.1 , 0.8 , 0.1 , 0 , 0, 0},
+                {0 , 0 , 0.1 , 0.8 , 0.1 , 0, 0},
+                {0 , 0 , 0 , 0.1 , 0.8 , 0.1 , 0},
+                {0 , 0 , 0 , 0 , 0.1 , 0.8 , 0.1},
+                {0 , 0 , 0 , 0 , 0 , 0, 1},
+        };
+
+        double[][] transitionMatrix2_2 = {
+                {0.6 , 0.4 , 0 , 0 , 0 , 0, 0},
+                {0.4 , 0.2 , 0.4 , 0 , 0 , 0, 0},
+                {0 , 0.4 , 0.2 , 0.4 , 0 , 0, 0},
+                {0 , 0 , 0.4 , 0.2 , 0.4 , 0, 0},
+                {0 , 0 , 0 , 0.4 , 0.2 , 0.4 , 0},
+                {0 , 0 , 0 , 0 , 0.4 , 0.2 , 0.4},
+                {0 , 0 , 0 , 0 , 0 , 0, 1},
+        };
+
+
+        int[] values = {0, 0, 0, 0 ,0 , 0, 0};
+
+        ChainEmulator chain = new ChainEmulator(firstPosition, transitionMatrix2_2, values);
+        chain.emulateChain(100, true);
+
+        chain.sos_pere(100);
     }
 }

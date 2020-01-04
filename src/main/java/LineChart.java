@@ -28,7 +28,7 @@ public class LineChart extends JFrame {
     private void initUI() {
         JFreeChart chart = createChart(dataset);
         ChartPanel chartPanel = new ChartPanel(chart);
-        chartPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+        chartPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         chartPanel.setBackground(Color.white);
         add(chartPanel);
 
@@ -55,7 +55,7 @@ public class LineChart extends JFrame {
 
         XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
         renderer.setSeriesPaint(0, Color.blue);
-        renderer.setSeriesStroke(0, new BasicStroke(2.0f));
+        renderer.setSeriesStroke(0, new BasicStroke(3.0f));
 
         plot.setRenderer(renderer);
         plot.setBackgroundPaint(Color.white);

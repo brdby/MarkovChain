@@ -1,6 +1,7 @@
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -19,39 +20,24 @@ public class ChainEmulator {
         this.chainValues = chainValues;
         this.length = firstPosition.length;
     }
-
-    private void pere_sos(int pos, double prevVar, int count){
-        if (count == pere_sosMax) return;
-        for (int i = 0; i < length; i++){
-            if (transitionMatrix[pos][i] != 0 && count < pere_sosMax) {
-                int localCount = count+1;
-                pere_sosFin[count][i] += transitionMatrix[pos][i]*prevVar;
-                pere_sos(i, transitionMatrix[pos][i]*prevVar, localCount);
-            }
-        }
+    public void sos_pere(int maxPere){
+        pere_sosMax = maxPere;
+        System.out.println(1 + " - " + Arrays.toString(firstPosition));
+        pere_sos(firstPosition, 2);
     }
 
-    public void sos_pere(int maxStep){
-        this.pere_sosMax = maxStep;
-        pere_sosFin = new double[pere_sosMax][length];
-
-        int firstStep = 0;
-        Random random = new Random();
-        double rNum = random.nextDouble();
+    private void pere_sos(double[] currentPos, int count){
+        if (count > pere_sosMax) return;
+        double[] newPos = new double[length];
         for (int i = 0; i < length; i++){
-            if (rNum > firstPosition[i]){
-                rNum-=firstPosition[i];
-            } else {
-                firstStep = i;
-                break;
+            for (int j = 0; j < length; j++){
+                newPos[i] = BigDecimal.valueOf(newPos[i]).add(BigDecimal.valueOf(currentPos[j]).multiply(BigDecimal.valueOf(transitionMatrix[j][i]))).doubleValue();
             }
         }
 
-        pere_sos(firstStep, 1, 0);
+        System.out.println(count + " - " + Arrays.toString(newPos));
 
-        for (int i = 0; i < pere_sosMax; i++){
-            System.out.println(i + " - " + Arrays.toString(pere_sosFin[i]));
-        }
+        pere_sos(newPos, ++count);
     }
 
     public String emulateChain(int steps, boolean showChart){
@@ -97,6 +83,7 @@ public class ChainEmulator {
         }
 
 
+        /*
         String text =  "P0 = 0 * (P0 + P1 + P2 + P3 + P4) = 0\n" +
                 "P1 = O,50 * P0 + 1,00*P4\n" +
                 "P2 = 0,75*P2 + 0,40*P3\n" +
@@ -110,11 +97,12 @@ public class ChainEmulator {
                 "P4 = 0,25 * P2 + 0,60 * P3\n" +
                 "P1 + P2 + P3 + P4 = 1";
         System.out.println(text);
+         */
 
-        double p0 = 0, p1 = 0.2174, p2 = 0.3478, p3 = 0.2174, p4 = 0.2174;
+        //double p0 = 0, p1 = 0.2174, p2 = 0.3478, p3 = 0.2174, p4 = 0.2174;
 
-        System.out.println("P0 - " + p0 + "; P1 - " + p1 + "; P2 - " + p2 + "; P3 - " + p3 + "; P4 - " + p4);
-        System.out.println("Проверка - P1 + P2 + P3 + P4 = " + (p1+p2+p3+p4) + "\n");
+        //System.out.println("P0 - " + p0 + "; P1 - " + p1 + "; P2 - " + p2 + "; P3 - " + p3 + "; P4 - " + p4);
+        //System.out.println("Проверка - P1 + P2 + P3 + P4 = " + (p1+p2+p3+p4) + "\n");
 
         return output.toString();
     }
